@@ -5,18 +5,20 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:google_maps_atlas/google_atlas.dart';
 import 'package:here_maps_atlas/here_atlas.dart';
 import 'package:mapbox_atlas/mapbox_atlas.dart';
-import 'package:multi_map_atlas/bloc/multi_map_bloc.dart';
+import 'package:multi_map_atlas/bloc/configuration_bloc.dart';
 import 'package:multi_map_atlas/enums/map_provider.dart';
+import 'package:multi_map_atlas/utils/constants.dart';
 import 'package:multi_map_atlas/widgets/settings_side_menu.dart';
 
-MapProvider currentMapProvider = MapProvider.Here;
+var currentMapProvider = MapProvider.Here;
 
 void main() {
   runApp(
     Phoenix(
       child: BlocProvider(
-        create: (BuildContext context) => MultiMapBloc()
-          ..add(ChangeMapProviderEvent(provider: currentMapProvider)),
+        create: (BuildContext context) => ConfigurationBloc(
+          mapProvider: currentMapProvider,
+        ),
         child: MyApp(),
       ),
     ),
@@ -32,7 +34,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    switch (currentMapProvider) {
+    final state = BlocProvider.of<ConfigurationBloc>(context).state;
+
+    switch (state.provider) {
       case MapProvider.Google:
         AtlasProvider.instance = GoogleAtlas();
         break;
@@ -53,24 +57,44 @@ class _MyAppState extends State<MyApp> {
           title: Text('Flutter Multi Map Provider'),
         ),
         drawer: SettingsSideMenu(),
-        body: BlocListener<MultiMapBloc, MultiMapState>(
+        body: BlocListener<ConfigurationBloc, ConfigurationState>(
+          listenWhen: (previous, current) =>
+              current is MapProviderChanged &&
+              previous.provider != current.provider,
           listener: (context, state) {
-            if (state is MapProviderChanged &&
-                state.provider != currentMapProvider) {
-              currentMapProvider = state.provider;
-              Phoenix.rebirth(context);
-            }
+            currentMapProvider = state.provider;
+            Phoenix.rebirth(context);
           },
-          child: Atlas(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(
-                latitude: 38.74412794727255,
-                longitude: -9.148597681706798,
-              ),
-            ),
+          child: BlocBuilder<ConfigurationBloc, ConfigurationState>(
+            builder: (context, state) {
+              return Atlas(
+                key: UniqueKey(),
+                initialCameraPosition: CameraPosition(
+                  target: getCityCoordinates(state.city),
+                  zoom: 13,
+                ),
+              );
+            },
           ),
         ),
       ),
     );
+  }
+
+  LatLng getCityCoordinates(City city) {
+    switch (city) {
+      case City.Lisbon:
+        return LisbonCoordinates;
+        break;
+      case City.SaoPaulo:
+        return SaoPauloCoordinates;
+        break;
+      case City.Tokyo:
+        return TokyoCoordinates;
+        break;
+      default:
+        return LisbonCoordinates;
+        break;
+    }
   }
 }

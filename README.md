@@ -10,10 +10,15 @@
 * `flutter pub get`
 ### Download the heresdk ios framework manually:
 >Since the [heresdk ios framework file](https://github.com/edsondiasalves/here_sdk/blob/main/ios/Frameworks/heresdk.framework/heresdk) uses git lfs to be hosted in github, you need to download it manually to the flutter dependency directory: `/Users/[YOUR-USER]/.pub-cache/git/here_sdk-[REFERENCE]/ios/Frameworks/heresdk.framework/`
-### Set the credencials
+### Set the credentials
+#### For getting your Google API Key sign up to the [Google Cloud](https://cloud.google.com/)
+#### For getting you MapBox API Key sign up to the [Google Cloud](https://mapbox.com/)
+#### For getting you Here API Key and Secret sign up to the [Here Developer Portal](https://developer.here.com/#)
+
 #### Ios:
 > In the `ios/Runner/Info.plist` file change the highlighted value
 + Here Maps
+####
 ```
 <key>HERECredentials</key>
       <dict>
