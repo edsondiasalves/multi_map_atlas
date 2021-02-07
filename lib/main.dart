@@ -7,7 +7,7 @@ import 'package:here_maps_atlas/here_atlas.dart';
 import 'package:mapbox_atlas/mapbox_atlas.dart';
 import 'package:multi_map_atlas/bloc/configuration_bloc.dart';
 import 'package:multi_map_atlas/enums/map_provider.dart';
-import 'package:multi_map_atlas/utils/constants.dart';
+import 'package:multi_map_atlas/utils/extensions.dart';
 import 'package:multi_map_atlas/widgets/settings_side_menu.dart';
 
 var currentMapProvider = MapProvider.Here;
@@ -15,11 +15,13 @@ var currentMapProvider = MapProvider.Here;
 void main() {
   runApp(
     Phoenix(
-      child: BlocProvider(
-        create: (BuildContext context) => ConfigurationBloc(
-          mapProvider: currentMapProvider,
+      child: MaterialApp(
+        home: BlocProvider(
+          create: (BuildContext context) => ConfigurationBloc(
+            mapProvider: currentMapProvider,
+          ),
+          child: MyApp(),
         ),
-        child: MyApp(),
       ),
     ),
   );
@@ -34,9 +36,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    final state = BlocProvider.of<ConfigurationBloc>(context).state;
-
-    switch (state.provider) {
+    switch (BlocProvider.of<ConfigurationBloc>(context).state.provider) {
       case MapProvider.Google:
         AtlasProvider.instance = GoogleAtlas();
         break;
@@ -51,50 +51,45 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter Multi Map Provider'),
-        ),
-        drawer: SettingsSideMenu(),
-        body: BlocListener<ConfigurationBloc, ConfigurationState>(
-          listenWhen: (previous, current) =>
-              current is MapProviderChanged &&
-              previous.provider != current.provider,
-          listener: (context, state) {
-            currentMapProvider = state.provider;
-            Phoenix.rebirth(context);
-          },
-          child: BlocBuilder<ConfigurationBloc, ConfigurationState>(
-            builder: (context, state) {
-              return Atlas(
-                key: UniqueKey(),
-                initialCameraPosition: CameraPosition(
-                  target: getCityCoordinates(state.city),
-                  zoom: 13,
-                ),
+    AtlasController _atlasController;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter Multi Map Provider'),
+      ),
+      drawer: SettingsSideMenu(),
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<ConfigurationBloc, ConfigurationState>(
+              listenWhen: (previous, current) =>
+                  current is MapProviderChangedState &&
+                  previous.provider != current.provider,
+              listener: (context, state) {
+                currentMapProvider = state.provider;
+                Phoenix.rebirth(context);
+              }),
+          BlocListener<ConfigurationBloc, ConfigurationState>(
+              listener: (context, state) {
+            if (state is CameraChangedState) {
+              _atlasController.moveCamera(
+                state.currentPosition.toCameraPosition(),
               );
-            },
-          ),
+            }
+          })
+        ],
+        child: BlocBuilder<ConfigurationBloc, ConfigurationState>(
+          buildWhen: (previous, current) => current is InitialPositionState,
+          builder: (context, state) {
+            return Atlas(
+              key: UniqueKey(),
+              initialCameraPosition: state.initialPosition.toCameraPosition(),
+              onMapCreated: (AtlasController atlasController) {
+                _atlasController = atlasController;
+              },
+            );
+          },
         ),
       ),
     );
-  }
-
-  LatLng getCityCoordinates(City city) {
-    switch (city) {
-      case City.Lisbon:
-        return LisbonCoordinates;
-        break;
-      case City.SaoPaulo:
-        return SaoPauloCoordinates;
-        break;
-      case City.Tokyo:
-        return TokyoCoordinates;
-        break;
-      default:
-        return LisbonCoordinates;
-        break;
-    }
   }
 }

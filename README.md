@@ -1,10 +1,17 @@
 <h1>A Flutter multi map provider using Atlas</h1>
 
+This flutter project uses Atlas to handle different map providers in the same application.
+</br>
+</br>
+<div align="center">
+<image src="https://user-images.githubusercontent.com/13770341/107151573-33630580-695b-11eb-816b-6a6e5d64254e.gif" />
+</div>
+
 ## Getting Started
 
 ### Clone the project:
 * `git clone https://github.com/edsondiasalves/multi_map_atlas.git`
-### Enter in the root directory:
+### Enter into the root directory:
 - `cd multi_map_atlas`
 ### Download the dependencies:
 * `flutter pub get`
@@ -12,7 +19,7 @@
 >Since the [heresdk ios framework file](https://github.com/edsondiasalves/here_sdk/blob/main/ios/Frameworks/heresdk.framework/heresdk) uses git lfs to be hosted in github, you need to download it manually to the flutter dependency directory: `/Users/[YOUR-USER]/.pub-cache/git/here_sdk-[REFERENCE]/ios/Frameworks/heresdk.framework/`
 ### Set the credentials
 #### For getting your Google API Key sign up to the [Google Cloud](https://cloud.google.com/)
-#### For getting you MapBox API Key sign up to the [Google Cloud](https://mapbox.com/)
+#### For getting you MapBox API Key sign up to the [Mapbox](https://mapbox.com/)
 #### For getting you Here API Key and Secret sign up to the [Here Developer Portal](https://developer.here.com/#)
 
 #### Ios:
