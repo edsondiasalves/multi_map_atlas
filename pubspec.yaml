@@ -13,23 +13,25 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_phoenix: ^0.1.0
   flutter_bloc: ^6.1.1
+  equatable: ^1.2.5
   atlas: 0.12.2
   here_maps_atlas:
     git:
       url: https://github.com/edsondiasalves/here_maps_atlas.git
-      ref: v1.0.0
+      ref: v1.1.0
   google_maps_atlas:
     git:
       url: https://github.com/edsondiasalves/google_maps_atlas.git
-      ref: v1.0.0
+      ref: v1.1.0
   mapbox_atlas:
     git:
       url: https://github.com/edsondiasalves/mapbox_atlas.git
-      ref: v1.0.0
+      ref: v1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 flutter:
   uses-material-design: true
 

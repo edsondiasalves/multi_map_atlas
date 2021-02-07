@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:multi_map_atlas/enums/map_provider.dart';
 import 'package:multi_map_atlas/utils/constants.dart';
@@ -18,9 +19,20 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     ConfigurationEvent event,
   ) async* {
     if (event is ChangeMapProviderStarted) {
-      yield MapProviderChanged(provider: event.provider);
+      yield MapProviderChangedState(
+        provider: event.provider,
+      );
     } else if (event is ChangeInitialPositionStarted) {
-      yield InitialPositionState(city: event.city, provider: state.provider);
+      yield InitialPositionState(
+        provider: state.provider,
+        initialPosition: event.city,
+      );
+    } else if (event is ChangeCameraPositionStarted) {
+      yield CameraChangedState(
+        provider: state.provider,
+        initialPosition: state.initialPosition,
+        currentPosition: event.city,
+      );
     }
   }
 }

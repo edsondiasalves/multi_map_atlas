@@ -35,7 +35,19 @@ class SettingsSideMenu extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(left: 15),
                         ),
-                        ..._buildInitialPositionList(context, state.city)
+                        ..._buildCityList(
+                          context: context,
+                          initialPosition: state.initialPosition,
+                          onChangeCity: onChangeInitialPosition,
+                        ),
+                        Container(
+                          child: Text('Move Camera'),
+                        ),
+                        ..._buildCityList(
+                          context: context,
+                          initialPosition: state.currentPosition,
+                          onChangeCity: onChangeCameraPosition,
+                        ),
                       ],
                     ),
                   ),
@@ -70,25 +82,39 @@ class SettingsSideMenu extends StatelessWidget {
     return mapProviders;
   }
 
-  List<Widget> _buildInitialPositionList(
+  List<Widget> _buildCityList({
     BuildContext context,
-    City groupValue,
-  ) {
-    final cities = List<Widget>();
-    City.values.forEach((city) {
-      final radioTile = RadioListTile<City>(
-        title: Text(city.toString().split('.')[1]),
-        dense: true,
-        value: city,
-        groupValue: groupValue,
-        onChanged: (City value) {
-          BlocProvider.of<ConfigurationBloc>(context).add(
-            ChangeInitialPositionStarted(city: value),
-          );
-        },
-      );
-      cities.add(radioTile);
-    });
+    City initialPosition,
+    Function(BuildContext, City) onChangeCity,
+  }) {
+    List<Widget> cities = [];
+    City.values.forEach((city) => {
+          cities.add(RadioListTile<City>(
+            title: Text(city.toString().split('.')[1]),
+            dense: true,
+            value: city,
+            groupValue: initialPosition,
+            onChanged: (City city) => onChangeCity(context, city),
+          ))
+        });
     return cities;
   }
+
+  final Function(BuildContext, City) onChangeInitialPosition = (
+    BuildContext context,
+    City value,
+  ) {
+    BlocProvider.of<ConfigurationBloc>(context).add(
+      ChangeInitialPositionStarted(city: value),
+    );
+  };
+
+  final Function(BuildContext, City) onChangeCameraPosition = (
+    BuildContext context,
+    City value,
+  ) {
+    BlocProvider.of<ConfigurationBloc>(context).add(
+      ChangeCameraPositionStarted(city: value),
+    );
+  };
 }

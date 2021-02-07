@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.5"
   fake_async:
     dependency: transitive
     description:
@@ -146,8 +153,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.0.0"
-      resolved-ref: "9da28fa7868a5497debefd59b170c0943d381b05"
+      ref: "v1.1.0"
+      resolved-ref: "0f834cfd7dda4d0eae8489f8191f04f06b26c6d7"
       url: "https://github.com/edsondiasalves/google_maps_atlas.git"
     source: git
     version: "1.0.0+1"
@@ -157,20 +164,20 @@ packages:
       name: google_maps_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
+    version: "1.2.0"
   google_maps_flutter_platform_interface:
     dependency: transitive
     description:
       name: google_maps_flutter_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.2.0"
   here_maps_atlas:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.0.0"
-      resolved-ref: d97c6a64402fd623622555905eafbbe8d5b6d4b5
+      ref: "v1.1.0"
+      resolved-ref: "6633d6f543fa0df77ca000ddd48d7a726dda4a0d"
       url: "https://github.com/edsondiasalves/here_maps_atlas.git"
     source: git
     version: "1.0.0+1"
@@ -215,8 +222,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.0.0"
-      resolved-ref: "750f7df6dc3ab43657b2b19f2f0e8f5cdbbdd18a"
+      ref: "v1.1.0"
+      resolved-ref: b442bad4d683c63759377bf27106048e4316c9d8
       url: "https://github.com/edsondiasalves/mapbox_atlas.git"
     source: git
     version: "1.0.0+1"
