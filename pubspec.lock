@@ -153,8 +153,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.1.0"
-      resolved-ref: "0f834cfd7dda4d0eae8489f8191f04f06b26c6d7"
+      ref: d2913c1bcfdf039a105a4d1bed2a72675ba59f62
+      resolved-ref: d2913c1bcfdf039a105a4d1bed2a72675ba59f62
       url: "https://github.com/edsondiasalves/google_maps_atlas.git"
     source: git
     version: "1.0.0+1"
@@ -176,8 +176,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.1.0"
-      resolved-ref: "6633d6f543fa0df77ca000ddd48d7a726dda4a0d"
+      ref: "63096949c661c429c7e5ce10606a551745f07d1e"
+      resolved-ref: "63096949c661c429c7e5ce10606a551745f07d1e"
       url: "https://github.com/edsondiasalves/here_maps_atlas.git"
     source: git
     version: "1.0.0+1"
@@ -222,8 +222,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.1.0"
-      resolved-ref: b442bad4d683c63759377bf27106048e4316c9d8
+      ref: "48e36ad82325983756935e119817015410ca5f4e"
+      resolved-ref: "48e36ad82325983756935e119817015410ca5f4e"
       url: "https://github.com/edsondiasalves/mapbox_atlas.git"
     source: git
     version: "1.0.0+1"

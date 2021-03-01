@@ -7,7 +7,6 @@ import 'package:here_maps_atlas/here_atlas.dart';
 import 'package:mapbox_atlas/mapbox_atlas.dart';
 import 'package:multi_map_atlas/bloc/configuration_bloc.dart';
 import 'package:multi_map_atlas/enums/map_provider.dart';
-import 'package:multi_map_atlas/utils/extensions.dart';
 import 'package:multi_map_atlas/widgets/settings_side_menu.dart';
 
 var currentMapProvider = MapProvider.Here;
@@ -71,18 +70,18 @@ class _MyAppState extends State<MyApp> {
           BlocListener<ConfigurationBloc, ConfigurationState>(
               listener: (context, state) {
             if (state is CameraChangedState) {
-              _atlasController.moveCamera(
-                state.currentPosition.toCameraPosition(),
-              );
+              _atlasController.moveCamera(state.currentCameraPosition);
             }
           })
         ],
         child: BlocBuilder<ConfigurationBloc, ConfigurationState>(
-          buildWhen: (previous, current) => current is InitialPositionState,
+          buildWhen: (previous, current) =>
+              current is InitialPositionState || current is MarkerLoadedState,
           builder: (context, state) {
             return Atlas(
               key: UniqueKey(),
-              initialCameraPosition: state.initialPosition.toCameraPosition(),
+              initialCameraPosition: state.initialCameraPosition,
+              markers: state.markers,
               onMapCreated: (AtlasController atlasController) {
                 _atlasController = atlasController;
               },
