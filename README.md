@@ -4,7 +4,7 @@ This flutter project uses Atlas to handle different map providers in the same ap
 </br>
 </br>
 <div align="center">
-<image src="https://user-images.githubusercontent.com/13770341/107151573-33630580-695b-11eb-816b-6a6e5d64254e.gif" />
+<image src="https://user-images.githubusercontent.com/13770341/109850005-ee747b00-7c49-11eb-8073-8bc7da72a696.gif" />
 </div>
 
 ## Getting Started

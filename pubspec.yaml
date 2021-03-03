@@ -18,15 +18,15 @@ dependencies:
   here_maps_atlas:
     git:
       url: https://github.com/edsondiasalves/here_maps_atlas.git
-      ref: v1.1.0
+      ref: v1.3.0
   google_maps_atlas:
     git:
       url: https://github.com/edsondiasalves/google_maps_atlas.git
-      ref: v1.1.0
+      ref: v1.3.0
   mapbox_atlas:
     git:
       url: https://github.com/edsondiasalves/mapbox_atlas.git
-      ref: v1.1.0
+      ref: v1.3.0
 
 dev_dependencies:
   flutter_test:
@@ -34,4 +34,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
 
