@@ -84,11 +84,46 @@ class _MyAppState extends State<MyApp> {
               markers: state.markers,
               onMapCreated: (AtlasController atlasController) {
                 _atlasController = atlasController;
+                _updateBounds(state, _atlasController);
               },
             );
           },
         ),
       ),
     );
+  }
+
+  void _updateBounds(
+    ConfigurationState state,
+    AtlasController _atlasController,
+  ) {
+    if (state.markers.isNotEmpty) {
+      var maxLatitude = state.markers.first.position.latitude;
+      var minLatitude = state.markers.first.position.latitude;
+      var maxLongitude = state.markers.first.position.longitude;
+      var minLongitude = state.markers.first.position.longitude;
+
+      state.markers.forEach((current) {
+        if (current.position.latitude > maxLatitude) {
+          maxLatitude = current.position.latitude;
+        }
+        if (current.position.latitude < minLatitude) {
+          minLatitude = current.position.latitude;
+        }
+        if (current.position.longitude > maxLongitude) {
+          maxLongitude = current.position.longitude;
+        }
+        if (current.position.longitude < minLongitude) {
+          minLongitude = current.position.longitude;
+        }
+      });
+
+      LatLngBounds bounds = LatLngBounds(
+        northeast: LatLng(latitude: maxLatitude, longitude: maxLongitude),
+        southwest: LatLng(latitude: minLatitude, longitude: minLongitude),
+      );
+
+      _atlasController.updateBounds(bounds, 50);
+    }
   }
 }
