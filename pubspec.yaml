@@ -18,15 +18,15 @@ dependencies:
   here_maps_atlas:
     git:
       url: https://github.com/edsondiasalves/here_maps_atlas.git
-      ref: v1.3.0
+      ref: v1.3.1
   google_maps_atlas:
     git:
       url: https://github.com/edsondiasalves/google_maps_atlas.git
-      ref: v1.3.0
+      ref: v1.3.1
   mapbox_atlas:
     git:
       url: https://github.com/edsondiasalves/mapbox_atlas.git
-      ref: v1.3.0
+      ref: v1.3.1
 
 dev_dependencies:
   flutter_test:

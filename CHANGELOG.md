@@ -1,3 +1,7 @@
+# 1.2.1
+
+* Implementing markers bounding box
+
 # 1.2.0
 
 * Implementing markers
